@@ -12,7 +12,7 @@ library("ggthemes")
 
 
 """
-Visualizando os dados
+1. Visualizando os dados
 - Importante analisar o tipo de cada variável (chr, dbl, int, etc.)
 """
 df_felicidade_2017 <- read.csv("felicidade_2017.csv")
