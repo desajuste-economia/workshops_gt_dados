@@ -10,76 +10,40 @@ install.packages("ggthemes")
 library("ggplot2") 
 library("ggthemes")
 
-
-"""
+"
 1. Visualizando os dados
 - Importante analisar o tipo de cada variável (chr, dbl, int, etc.)
-"""
+"
 df_felicidade_2017 <- read.csv("felicidade_2017.csv")
-str(df_felicidade_2017) 
-View(df_felicidade_2017)
+str(df_felicidade_2017)  # Estrutura da base de dados
+View(df_felicidade_2017) # Visualizar a base de dados
 
-"""
+"
 R base x GGPLOT2
-"""
+"
 # Gráfico gerado no R base
-plot(x = df_felicidade_2017$log_gdp_per_capita,
-     y = df_felicidade_2017$life_expec)
+plot(x = df_felicidade_2017$log_gdp_per_capita, # Variável Contínua
+     y = df_felicidade_2017$life_expec)         # Variável Contínua
 
 # Gráfico gerado no GGPLOT2
-ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
-                                      y = life_expec)) +
+ggplot(data = df_felicidade_2017,
+       aes(x = log_gdp_per_capita, # Variável Contínua
+           y = life_expec)) +      # Variável Contínua
   geom_point() 
 
 
-"""
+"
 Principais tipos de gráficos
-1. Dispersão (scatterplot) -> geom_point()
+
+1. Dispersão (scatterplot) -> geom_point()        
 2. Gráfico de barras       -> geom_col()/geom_bar()
-3. Histograma              -> geom_histogram()
+3. Histograma              -> geom_histogram()     
 4. Boxplot                 -> geom_boxplot()
 5. Densidade               -> geom_density()
 6. Gráfico de linhas       -> geom_line()
-"""
+"
 
-"""
-Estética
-"""
-# Agrupando
-
-## Por cor
-ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
-                                      y = life_expec,
-                                      color = continent)) +
-  geom_point() 
-## Por forma
-ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
-                                      y = life_expec,
-                                      shape = continent)) +
-  geom_point() 
-
-# Facetas
-ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
-                                      y = life_expec)) +
-  geom_point() +
-  facet_wrap(~ continent)
-
-# Paleta de cores
-
-install.packages("RColorBrewer")
-library("RColorBrewer")
-
-display.brewer.all(n=NULL, type="all", select=NULL, exact.n=TRUE,
-                   colorblindFriendly=TRUE)
-
-## Mudando paletas de cores
-ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
-                                      y = life_expec,
-                                      color = continent)) +
-  geom_point() +
-  scale_color_brewer(palette = "Dark2")
-
-"""
+"
 Elementos possíveis dentro de aes()
 1. Posição (x e y);
 2. Cor (color);
@@ -87,11 +51,53 @@ Elementos possíveis dentro de aes()
 4. Preenchimento (fill);
 5. Transparência (alpha);
 6. Forma (shape).
-"""
+"
 
-"""
+"
+Agrupamentos
+"
+
+# Por cor
+
+## Com uma variável discreta
+
+ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
+                                      y = life_expec,
+                                      color = continent)) +
+  geom_point() 
+
+## Com uma variável contínua
+
+ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
+                                      y = life_expec,
+                                      color = life_expec)) +
+  geom_point() 
+
+# Por forma
+
+## Com uma variável discreta
+
+ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
+                                      y = life_expec,
+                                      shape = continent)) +
+  geom_point() 
+
+## Com uma variável contínua
+
+ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
+                                      y = life_expec,
+                                      shape = life_expec)) +
+  geom_point() 
+
+# Facetas (Precisa necessariamente ser discreta)
+ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
+                                      y = life_expec)) +
+  geom_point() +
+  facet_wrap(~ continent)
+
+"
 Linha de tendência
-"""
+"
 # Completo
 ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
                                       y = life_expec)) +
@@ -106,8 +112,12 @@ ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
   geom_smooth(method = "lm", se = F)
 
 """
-Gráfico de Pizza vs Gráfico em Barra
+Gráfico de Pizza x Gráfico em Barra
 """
+
+install.packages("dplyr")
+library(dplyr)
+
 n_paises <- df_felicidade_2017 %>%
   group_by(continent) %>%
   summarise(n = n())
@@ -121,6 +131,27 @@ ggplot(n_paises, aes(x = "", y = n, fill = continent)) +
 # Barra
 ggplot(n_paises, aes(y = n, x = continent, fill = continent)) + 
   geom_col()
+
+"
+Paleta de cores
+"
+install.packages("RColorBrewer")
+library("RColorBrewer")
+
+# Apresentar as paletas disponíveis
+
+display.brewer.all(n=NULL, type="all", select=NULL, exact.n=TRUE,
+                   colorblindFriendly=TRUE) # Paletas amigáveis para daltônicos
+
+# Mudando paletas de cores
+
+ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
+                                      y = life_expec,
+                                      color = continent)) +
+  geom_point() +
+  scale_color_brewer(palette = "Set2")
+
+# Você pode criar suas próprias paletas utilizando os códigos RBG 
 
 
 "
@@ -183,10 +214,10 @@ ggplot(data = df_felicidade_2017, aes(x = log_gdp_per_capita,
 "
 Boxplot
 "
-
 ggplot(data = df_felicidade_2017) +
-  geom_boxplot(aes(y = log_gdp_per_capita)) # Nesse caso utilizamos y
-
+  geom_boxplot(aes(y = life_expec, # Variável Contínua
+                   x = continent,  # Variável Categórica (Discreta)
+                   fill = continent))
 
 
 "
@@ -204,7 +235,6 @@ ggplot(data = df_felicidade_2017) +
 Renda dos países tem  distribuição assimétrica
 negativa / para esquerda (maiores desvios na renda dos países pobres)
 "
-
 
 
 "
@@ -280,13 +310,46 @@ plot_labels + theme_custom
 
 plot_labels_new <- plot_labels + theme_custom
 
-
-
-plot_labels + theme_clean() + 
+plot_labels_new + 
   theme(title = element_text(family = "Times New Roman", size = 20))  +
   theme(axis.title.x = element_text(family = "Times New Roman", size = 14)) +
   theme(axis.title.y = element_text(family = "Times New Roman", size = 14)) +
   scale_color_brewer(palette = "Dark2")
 
 
+"
+Salvar Gráfico (Exemplo Boxplot)
+"
 
+boxplot <- ggplot(data = df_felicidade_2017) +
+  geom_boxplot(aes(y = life_expec,
+                   x = continent,
+                   fill = continent))
+
+plot_boxplot <- boxplot + 
+  geom_hline(yintercept = mean(df_felicidade_2017$life_expec,
+                               na.rm = TRUE),
+             linetype = "dashed") +
+  labs(title = "Boxplot Expectativa de Vida",
+       subtitle = "Fonte: Helliwell, J., Layard, R., & Sachs, J. (2017).",
+       y = "Expectativa de vida",
+       x = "Continente") +
+  scale_x_discrete(labels = c("Europe"   = "Europa",
+                              "Africa"   = "África",
+                              "Asia"     = "Ásia",
+                              "Americas" = "Américas")) +
+  scale_y_continuous(breaks = c(50.00,
+                                round(mean(df_felicidade_2017$life_expec,
+                                           na.rm = TRUE),
+                                      digits = 2),
+                                75.00)) +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_clean() +
+  theme(title = element_text(family = "Times New Roman", size = 20),
+        axis.title.x = element_text(family = "Times New Roman", size = 14),
+        axis.title.y = element_text(family = "Times New Roman", size = 14),
+        legend.position = "none")
+
+# Salvando o Gráfico
+ggsave(plot = plot_boxplot, "plot_boxplot.png",
+       width = 15, height = 12.5, units = "cm")
