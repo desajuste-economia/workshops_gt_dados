@@ -1,0 +1,45 @@
+Moneyball Projects
+
+https://github.com/vini-moura/workshop-desajuste
+
+Pequena história:
+o time de baseball Oakland A em 2002 perdeu seus 3 maiores jogadores e para piorar o time estava
+com problemas financeiros. O técnico então utilizou estatística para encontrar outros 3 jogadores 
+que substituissem os originais.
+
+Como são registrados inúmeros dados no baseball, as condições dos novos jogadores eram
+1. Salário combinado dos 3 novos jogadores menor que 15 milhões de dolares
+2. Estatística At Bat - AB combinadas devem ser igual ou melhor que o combinado dos jogadores anteriores
+3. Média conjunta de On Base Percentage - OBP deve ser igual ou maior que a média conjunta dos antigos jogadores
+
+AB: nº de vezes que o jogador aparece na base de rebatidas
+OBP: média de quantas vezes o jogador chega à primeira base pelo número de rebatidas realizadas
+
+
+Passos:
+1 - ler os arquivos
+2 - conferir se tudo foi carregado adequadamente (summary e str)
+3 - se quiser, confira algumas estatísticas descritivas
+4 - se quiser, faça análise gráfica com ggplot
+
+
+5 - crie coluna com estatísitca de rebatidas (BA - batting average)
+6 - crie coluna com estatísitca de Na Base (OBP - On Base Percentage)
+7 - crie coluna com estatísitca de deslizespela base (SLG - Sluging Percentage)
+8 - confira a estrura e confira se está tudo correto
+
+
+9 - filtre os dados para o ano de 2001
+10 - utilize summary para conferir ultimo passo
+11 - use merge() para unir as duas tabelas
+12 - repita o 10
+
+
+13 - faça uma análise estatística dos jogadores perdidos
+	Código na coluna "playerID": 1."giambja01" 2."damonjo01" 3. "saenzol01"
+			a título de curiosidade, os nomes respecitivamente era:
+			Jason Giambi, Johnny Damon e Gustavo "Ray" Olmedo
+14 - reduza as os dados para as estatísticas playerID,H,X2B,X3B,HR,OBP,SLG,BA,AB
+15 - use comparações para achar os substitutos
+
+Existem diversas respostas possíveis, então boa sorte!

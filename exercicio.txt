@@ -1,0 +1,18 @@
+Exercícios
+
+
+1. Crie seis vetores de 6 dados
+2. Una os vetores por coluna ou linha para obter uma matriz
+3. Crie outra matriz 6x6
+
+4. Selecione apenas o valor da linha 2, coluna 3
+5. Selecione apenas o valor da linha 4, coluna 1
+6. Selecione apenas o valor da linha 6, coluna 1
+
+7. Qual a soma de todos os itens da 3 coluna?
+8. Qual a média da 5 linha?
+9. Qual a soma de todos os elementos?
+
+desafio:
+Descubra como usar runif() para criar uma matriz 4x5 com 20 numeros aleatórios
+
